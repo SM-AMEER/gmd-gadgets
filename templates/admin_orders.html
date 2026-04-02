@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Orders</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    background:#0f172a;
+    color:white;
+    font-family:Arial;
+    margin:0;
+    padding:20px;
+}
+
+h1 {
+    color:#38bdf8;
+    text-align:center;
+}
+
+/* HEADER */
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+button {
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.back {
+    background:#38bdf8;
+}
+
+.logout {
+    background:#ef4444;
+}
+
+/* ORDER CARD */
+.order {
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.order h3 {
+    margin:0;
+    color:#22c55e;
+}
+
+.order p {
+    margin:5px 0;
+}
+
+/* STATUS */
+.status {
+    padding:5px 10px;
+    border-radius:6px;
+    font-size:14px;
+}
+
+.pending {
+    background:#facc15;
+    color:black;
+}
+
+.delivered {
+    background:#22c55e;
+}
+
+/* BUTTON */
+.deliver-btn {
+    margin-top:10px;
+    background:#22c55e;
+}
+
+/* MOBILE */
+@media (max-width:600px) {
+    .top {
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .order {
+        padding:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+    <a href="/admin">
+        <button class="back">⬅ Back</button>
+    </a>
+
+    <h1>📦 Orders</h1>
+
+    <a href="/logout">
+        <button class="logout">Logout</button>
+    </a>
+</div>
+
+{% if orders %}
+    {% for order in orders %}
+    <div class="order">
+
+        <h3>Order #{{ order['id'] }}</h3>
+
+        <p><b>Name:</b> {{ order['name'] }}</p>
+        <p><b>Phone:</b> {{ order['phone'] }}</p>
+        <p><b>Address:</b> {{ order['address'] }}</p>
+
+        <p><b>Total:</b> ₹{{ order['total'] }}</p>
+
+        <p>
+            <b>Status:</b>
+            {% if order['status'] == "Pending" %}
+                <span class="status pending">Pending</span>
+            {% else %}
+                <span class="status delivered">Delivered</span>
+            {% endif %}
+        </p>
+
+        {% if order['status'] == "Pending" %}
+        <a href="/update_order/{{ order['id'] }}">
+            <button class="deliver-btn">Mark as Delivered</button>
+        </a>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+{% else %}
+    <h2 style="text-align:center;">No orders yet 😢</h2>
+{% endif %}
+
+</body>
+</html>

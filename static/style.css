@@ -1,0 +1,6 @@
+body{background:#0f172a;color:white;font-family:sans-serif}
+.navbar{display:flex;justify-content:space-between;padding:15px;background:#020617}
+.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:20px}
+.card{background:#1e293b;padding:15px;border-radius:10px}
+img{width:100%}
+button{background:#38bdf8;border:none;padding:10px;border-radius:8px}

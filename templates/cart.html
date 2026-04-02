@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your Cart</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #38bdf8;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.card img {
+    width: 80px;
+    border-radius: 10px;
+}
+
+.info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add { background: #22c55e; color: white; }
+.sub { background: #facc15; color: black; }
+.remove { background: #ef4444; color: white; }
+
+.total {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.checkout {
+    background: linear-gradient(135deg,#38bdf8,#22c55e);
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.empty {
+    text-align: center;
+    margin-top: 50px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🛒 Your Cart</h1>
+
+<div class="container">
+
+{% if cart %}
+    {% for id, item in cart.items() %}
+    <div class="card">
+
+        <img src="{{ item.image }}">
+
+        <div class="info">
+            <h3>{{ item.name }}</h3>
+            <p>₹{{ item.price }}</p>
+            <p>Qty: {{ item.quantity }}</p>
+        </div>
+
+        <div class="controls">
+
+            <a href="/increase/{{ id }}">
+                <button class="add">+</button>
+            </a>
+
+            <a href="/decrease/{{ id }}">
+                <button class="sub">-</button>
+            </a>
+
+            <a href="/remove/{{ id }}">
+                <button class="remove">Remove</button>
+            </a>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+    <div class="total">
+        <h2>Total: ₹{{ total }}</h2>
+
+        <a href="/checkout">
+            <button class="checkout">🚀 Proceed to Payment</button>
+        </a>
+    </div>
+
+{% else %}
+    <div class="empty">
+        <p>Your cart is empty 😢</p>
+        <a href="/"><button class="checkout">Shop Now</button></a>
+    </div>
+{% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Checkout</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    background:#0f172a;
+    color:white;
+    font-family:Arial;
+    padding:20px;
+    margin:0;
+}
+
+.container {
+    max-width:500px;
+    margin:auto;
+    background:#1e293b;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+h1 {
+    text-align:center;
+    color:#38bdf8;
+}
+
+input {
+    display:block;
+    margin:10px 0;
+    padding:12px;
+    width:100%;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    font-size:16px;
+}
+
+button {
+    width:100%;
+    padding:14px;
+    background:#22c55e;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:18px;
+    margin-top:10px;
+}
+
+button:hover {
+    background:#16a34a;
+}
+
+.back {
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    color:#38bdf8;
+    text-decoration:none;
+}
+
+/* 🔥 Mobile Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding:20px;
+    }
+
+    h1 {
+        font-size:22px;
+    }
+
+    input {
+        font-size:14px;
+        padding:10px;
+    }
+
+    button {
+        font-size:16px;
+        padding:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🧾 Checkout</h1>
+
+<form method="POST">
+
+    <input name="name" placeholder="Full Name" required>
+
+    <input name="address" placeholder="Address" required>
+
+    <input name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+
+    <h3>Total: ₹{{ total }}</h3>
+
+    <button type="submit">Proceed to Payment 💳</button>
+
+</form>
+
+<a href="/cart" class="back">⬅ Back to Cart</a>
+
+</div>
+
+</body>
+</html>

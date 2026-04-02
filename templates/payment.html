@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Payment</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    background:#0f172a;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card {
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+h1 {
+    color:#38bdf8;
+}
+
+button {
+    width:100%;
+    padding:14px;
+    background:#22c55e;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+button:hover {
+    background:#16a34a;
+}
+
+/* Mobile */
+@media (max-width:600px) {
+    .card {
+        padding:20px;
+    }
+
+    h1 {
+        font-size:22px;
+    }
+
+    button {
+        font-size:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>💳 Payment</h1>
+    <h2>Total: ₹{{ total }}</h2>
+
+    <button id="pay-btn">Pay Now</button>
+</div>
+
+<script>
+var options = {
+    key: "{{ key_id }}",
+    amount: {{ total * 100 }},
+    currency: "INR",
+    name: "GMD Gadgets",
+    description: "Order Payment",
+    order_id: "{{ order_id }}",
+
+    handler: function (response){
+        alert("Payment Successful ✅");
+        window.location.href = "/success";
+    },
+
+    theme: {
+        color: "#22c55e"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById("pay-btn").onclick = function(e){
+    rzp.open();
+    e.preventDefault();
+}
+</script>
+
+</body>
+</html>
