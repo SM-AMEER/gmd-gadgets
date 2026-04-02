@@ -87,48 +87,52 @@ body {
     font-weight: bold;
 }
 
-/* 🔍 SEARCH (FIXED 🔥) */
+/* 🔍 SEARCH */
 .search-section {
     padding: 12px;
 }
 
 .search-box {
-    display: flex;
-    align-items: center;
     max-width: 600px;
     margin: auto;
     background: white;
     border-radius: 8px;
     border: 1px solid #ddd;
-    overflow: hidden;
+    position: relative;
 }
 
 .search-box input {
-    flex: 1;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     border: none;
     outline: none;
     font-size: 14px;
 }
 
-.search-box button {
-    width: 45px;
-    height: 36px;
-    border: none;
-    background: #2563eb;
-    color: white;
+/* 🔽 SUGGESTIONS */
+#suggestions {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    z-index: 100;
+}
+
+.suggestion-item {
+    padding: 10px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    margin-right: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background: #f3f4f6;
 }
 
 /* 🛍 PRODUCTS */
 .products {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 📱 mobile */
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 12px;
 }
@@ -166,7 +170,6 @@ body {
     font-size: 13px;
 }
 
-/* BRAND TEXT */
 .brand {
     font-size: 10px;
     color: gray;
@@ -203,10 +206,6 @@ button {
     text-decoration: none;
     font-weight: bold;
 }
-
-.footer a:hover {
-    text-decoration: underline;
-}
 </style>
 </head>
 
@@ -240,17 +239,17 @@ button {
     <a href="/cart" class="cart-btn">🛒 Cart</a>
 </div>
 
-<!-- 🔥 BRAND -->
+<!-- BRAND -->
 <div class="brand-bar">
     🚀 Powered by <strong>Ariyom Tech Solutions</strong>
 </div>
 
 <!-- SEARCH -->
 <div class="search-section">
-    <form method="GET" class="search-box">
-        <input type="text" name="q" placeholder="Search gadgets...">
-        <button type="submit">🔍</button>
-    </form>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search gadgets..." onkeyup="liveSearch()">
+        <div id="suggestions"></div>
+    </div>
 </div>
 
 <!-- PRODUCTS -->
@@ -302,6 +301,37 @@ window.onclick = function(e) {
     if (!e.target.closest('.menu')) {
         document.getElementById("menuDropdown").style.display = "none";
     }
+}
+
+/* 🔥 LIVE SEARCH */
+const products = [
+    {% for p in products %}
+        "{{ p['name'] }}",
+    {% endfor %}
+];
+
+function liveSearch() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let box = document.getElementById("suggestions");
+
+    box.innerHTML = "";
+
+    if (input === "") return;
+
+    let filtered = products.filter(p => p.toLowerCase().includes(input));
+
+    filtered.forEach(item => {
+        let div = document.createElement("div");
+        div.classList.add("suggestion-item");
+        div.innerText = item;
+
+        div.onclick = () => {
+            document.getElementById("searchInput").value = item;
+            box.innerHTML = "";
+        };
+
+        box.appendChild(div);
+    });
 }
 </script>
 
