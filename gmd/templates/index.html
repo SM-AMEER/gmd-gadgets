@@ -12,7 +12,7 @@ body {
     background: #f3f4f6;
 }
 
-/* 🔵 HEADER */
+/* HEADER */
 .header {
     background: linear-gradient(90deg, #1e3a8a, #2563eb);
     color: white;
@@ -37,17 +37,15 @@ body {
     font-size: 18px;
 }
 
-/* CART */
 .cart-btn {
     background: #22c55e;
     padding: 6px 12px;
     border-radius: 6px;
     text-decoration: none;
     color: white;
-    font-weight: bold;
 }
 
-/* 🔥 BRAND BAR */
+/* BRAND */
 .brand-bar {
     background: #111;
     color: #fff;
@@ -56,38 +54,7 @@ body {
     font-size: 13px;
 }
 
-/* DROPDOWN */
-.dropdown {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background: white;
-    min-width: 200px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    overflow: hidden;
-    z-index: 10;
-}
-
-.dropdown a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-}
-
-.dropdown a:hover {
-    background: #f3f4f6;
-}
-
-.admin-link {
-    background: #fee2e2;
-    color: #b91c1c;
-    font-weight: bold;
-}
-
-/* 🔍 SEARCH */
+/* SEARCH */
 .search-section {
     padding: 12px;
 }
@@ -106,10 +73,9 @@ body {
     padding: 12px;
     border: none;
     outline: none;
-    font-size: 14px;
 }
 
-/* 🔽 SUGGESTIONS */
+/* SUGGESTIONS */
 #suggestions {
     position: absolute;
     width: 100%;
@@ -122,14 +88,13 @@ body {
 .suggestion-item {
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #eee;
 }
 
 .suggestion-item:hover {
     background: #f3f4f6;
 }
 
-/* 🛍 PRODUCTS */
+/* PRODUCTS */
 .products {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -137,7 +102,6 @@ body {
     padding: 12px;
 }
 
-/* 💻 DESKTOP */
 @media (min-width: 768px) {
     .products {
         grid-template-columns: repeat(4, 1fr);
@@ -150,24 +114,12 @@ body {
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .card img {
     width: 100%;
     height: 120px;
     object-fit: cover;
-    border-radius: 6px;
-}
-
-.card h3 {
-    margin: 8px 0 4px;
-    font-size: 14px;
-}
-
-.card p {
-    margin: 0;
-    font-size: 13px;
 }
 
 .brand {
@@ -179,13 +131,11 @@ body {
 button {
     background: #2563eb;
     color: white;
-    border: none;
     padding: 7px;
+    border: none;
     width: 100%;
     border-radius: 6px;
-    cursor: pointer;
     margin-top: 8px;
-    font-size: 13px;
 }
 
 .in-cart {
@@ -198,13 +148,10 @@ button {
     color: #fff;
     text-align: center;
     padding: 20px;
-    margin-top: 20px;
 }
 
 .footer a {
     color: #38bdf8;
-    text-decoration: none;
-    font-weight: bold;
 }
 </style>
 </head>
@@ -213,30 +160,8 @@ button {
 
 <!-- HEADER -->
 <div class="header">
-
-    <div class="menu">
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-
-        <div class="dropdown" id="menuDropdown">
-            {% if session.get('admin') %}
-                <a href="/admin">🛠 Admin Panel</a>
-                <a href="/admin/orders">📦 Orders</a>
-                <a href="/logout">🚪 Logout</a>
-            {% elif session.get('user') %}
-                <a>👤 {{ session.get('user') }}</a>
-                <a href="/cart">🛒 My Cart</a>
-                <a href="/user_logout">🚪 Logout</a>
-            {% else %}
-                <a href="/user_login">👤 User Login</a>
-                <a href="/signup">📝 Signup</a>
-                <a href="/login" class="admin-link">🛠 Admin Login</a>
-            {% endif %}
-        </div>
-    </div>
-
     <h1>⚡ GMD Gadgets</h1>
-
-    <a href="/cart" class="cart-btn">🛒 Cart</a>
+    <a href="/cart" class="cart-btn">🛒</a>
 </div>
 
 <!-- BRAND -->
@@ -255,23 +180,17 @@ button {
 <!-- PRODUCTS -->
 <div class="products">
 
-{% set cart = session.get('cart', {}) %}
-
 {% for p in products %}
-<div class="card">
+<div class="card" data-name="{{ p['name'] }}">
 
     <img src="{{ p['image'] }}">
     <h3>{{ p['name'] }}</h3>
     <p class="brand">by Ariyom Tech</p>
     <p>₹{{ p['price'] }}</p>
 
-    {% if cart.get(p['id']|string) %}
-        <button class="in-cart">✅ In Cart</button>
-    {% else %}
-        <a href="/add_to_cart/{{ p['id'] }}">
-            <button>Add to Cart</button>
-        </a>
-    {% endif %}
+    <a href="/add_to_cart/{{ p['id'] }}">
+        <button>Add to Cart</button>
+    </a>
 
 </div>
 {% endfor %}
@@ -281,10 +200,7 @@ button {
 <!-- FOOTER -->
 <footer class="footer">
     <h3>Ariyom Tech Solutions</h3>
-    <p>Custom Software | Web Development | Mobile Apps</p>
-
-    <p>
-        📸 Instagram:
+    <p>📸 
         <a href="https://instagram.com/ariyom_tech_solutions" target="_blank">
             @ariyom_tech_solutions
         </a>
@@ -292,45 +208,35 @@ button {
 </footer>
 
 <script>
-function toggleMenu() {
-    let menu = document.getElementById("menuDropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-window.onclick = function(e) {
-    if (!e.target.closest('.menu')) {
-        document.getElementById("menuDropdown").style.display = "none";
-    }
-}
-
-/* 🔥 LIVE SEARCH */
-const products = [
-    {% for p in products %}
-        "{{ p['name'] }}",
-    {% endfor %}
-];
-
 function liveSearch() {
     let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".card");
     let box = document.getElementById("suggestions");
 
     box.innerHTML = "";
 
-    if (input === "") return;
+    cards.forEach(card => {
+        let name = card.getAttribute("data-name").toLowerCase();
 
-    let filtered = products.filter(p => p.toLowerCase().includes(input));
+        if (name.includes(input)) {
+            card.style.display = "block";
 
-    filtered.forEach(item => {
-        let div = document.createElement("div");
-        div.classList.add("suggestion-item");
-        div.innerText = item;
+            if (input !== "") {
+                let div = document.createElement("div");
+                div.className = "suggestion-item";
+                div.innerText = name;
 
-        div.onclick = () => {
-            document.getElementById("searchInput").value = item;
-            box.innerHTML = "";
-        };
+                div.onclick = () => {
+                    document.getElementById("searchInput").value = name;
+                    box.innerHTML = "";
+                };
 
-        box.appendChild(div);
+                box.appendChild(div);
+            }
+
+        } else {
+            card.style.display = "none";
+        }
     });
 }
 </script>
