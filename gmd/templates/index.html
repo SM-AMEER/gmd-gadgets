@@ -76,15 +76,40 @@ body {
     background: #f3f4f6;
 }
 
-/* ADMIN STYLE */
 .admin-link {
     background: #fee2e2;
     color: #b91c1c;
     font-weight: bold;
 }
 
-/* 🔍 SEARCH */
-https://gmd-gadgets-7.onrender.com
+/* 🔍 SEARCH FIX */
+.search-section {
+    padding: 10px;
+    background: #f3f4f6;
+}
+
+.search-box {
+    display: flex;
+    gap: 5px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
 
 /* 🛍 PRODUCTS */
 .products {
@@ -131,83 +156,50 @@ button {
 @media(max-width:600px){
 
     .products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
+        grid-template-columns: repeat(1, 1fr);
     }
 
-    .card img {
-        height: 120px;
-    }
-
-    .card h3 {
-        font-size: 14px;
-    }
-
-    .card p {
-        font-size: 13px;
-    }
-
-    button {
-        padding: 7px;
-        font-size: 12px;
-    }
-
-    .header h1 {
-        font-size: 16px;
+    .search-box {
+        width: 100%;
     }
 
     .search-box button {
-        width: 45px;
+        width: 50px;
     }
 }
-    @media(max-width:600px){
-        .search-box {
-            max-width: 100%;
-        }
-    }
 </style>
 </head>
 
 <body>
 
-<!-- 🔵 HEADER -->
 <div class="header">
 
-    <!-- LEFT MENU -->
     <div class="menu">
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
         <div class="dropdown" id="menuDropdown">
-
             {% if session.get('admin') %}
                 <a href="/admin">🛠 Admin Panel</a>
                 <a href="/admin/orders">📦 Orders</a>
                 <a href="/logout">🚪 Logout</a>
-
             {% elif session.get('user') %}
                 <a>👤 {{ session.get('user') }}</a>
                 <a href="/cart">🛒 My Cart</a>
                 <a href="/user_logout">🚪 Logout</a>
-
             {% else %}
                 <a href="/user_login">👤 User Login</a>
                 <a href="/signup">📝 Signup</a>
                 <a href="/login" class="admin-link">🛠 Admin Login</a>
             {% endif %}
-
         </div>
     </div>
 
-    <!-- CENTER -->
     <h1>⚡ GMD Gadgets</h1>
 
-    <!-- RIGHT -->
     <a href="/cart" class="cart-btn">🛒 Cart</a>
-
 </div>
 
-<!-- 🔍 SEARCH -->
+<!-- SEARCH -->
 <div class="search-section">
     <form method="GET" class="search-box">
         <input type="text" name="q" placeholder="Search gadgets...">
@@ -215,14 +207,13 @@ button {
     </form>
 </div>
 
-<!-- 🛍 PRODUCTS -->
+<!-- PRODUCTS -->
 <div class="products">
 
 {% set cart = session.get('cart', {}) %}
 
 {% for p in products %}
 <div class="card">
-
     <img src="{{ p['image'] }}">
     <h3>{{ p['name'] }}</h3>
     <p>₹{{ p['price'] }}</p>
@@ -234,13 +225,11 @@ button {
             <button>Add to Cart</button>
         </a>
     {% endif %}
-
 </div>
 {% endfor %}
 
 </div>
 
-<!-- JS -->
 <script>
 function toggleMenu() {
     let menu = document.getElementById("menuDropdown");
