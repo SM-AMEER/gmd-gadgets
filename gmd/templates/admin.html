@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: #38bdf8;
+}
+
+/* BUTTONS */
+.top-buttons button {
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.home-btn {
+    background: #22c55e;
+}
+
+.logout-btn {
+    background: #ef4444;
+}
+
+.order-btn {
+    background: #38bdf8;
+}
+
+/* FORM */
+form {
+    margin-top: 20px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+button.add-btn {
+    background: #22c55e;
+    width: 100%;
+}
+
+/* PRODUCT LIST */
+.products {
+    margin-top: 30px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.delete-btn {
+    background: #ef4444;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>⚙️ Admin Panel</h1>
+
+    <div class="top-buttons">
+
+        <a href="/">
+            <button class="home-btn">🏠 Home</button>
+        </a>
+
+        <a href="/admin/orders">
+            <button class="order-btn">📦 Orders</button>
+        </a>
+
+        <a href="/logout">
+            <button class="logout-btn">🚪 Logout</button>
+        </a>
+
+    </div>
+</div>
+
+<!-- ADD PRODUCT FORM -->
+<form method="POST">
+    <h2>Add Product</h2>
+
+    <input type="text" name="name" placeholder="Product Name" required>
+
+    <input type="text" name="price" placeholder="Price" required>
+
+    <input type="text" name="image" placeholder="Image URL" required>
+
+    <button class="add-btn">Add Product</button>
+</form>
+
+<!-- PRODUCT LIST -->
+<div class="products">
+    <h2>All Products</h2>
+
+    {% for p in products %}
+    <div class="card">
+
+        <div style="display:flex; align-items:center; gap:15px;">
+            <img src="{{ p['image'] }}">
+            <div>
+                <h3>{{ p['name'] }}</h3>
+                <p>₹{{ p['price'] }}</p>
+            </div>
+        </div>
+
+        <a href="/delete/{{ p['id'] }}">
+            <button class="delete-btn">Delete</button>
+        </a>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
