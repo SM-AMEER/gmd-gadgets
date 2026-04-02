@@ -87,7 +87,7 @@ body {
     font-weight: bold;
 }
 
-/* 🔍 SEARCH */
+/* 🔍 SEARCH (FIXED 🔥) */
 .search-section {
     padding: 12px;
 }
@@ -99,7 +99,7 @@ body {
     margin: auto;
     background: white;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     overflow: hidden;
 }
 
@@ -112,11 +112,17 @@ body {
 }
 
 .search-box button {
-    padding: 8px 12px;
+    width: 45px;
+    height: 36px;
     border: none;
     background: #2563eb;
     color: white;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin-right: 5px;
 }
 
 /* 🛍 PRODUCTS */
@@ -190,6 +196,16 @@ button {
     text-align: center;
     padding: 20px;
     margin-top: 20px;
+}
+
+.footer a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
 </style>
 </head>
@@ -267,6 +283,13 @@ button {
 <footer class="footer">
     <h3>Ariyom Tech Solutions</h3>
     <p>Custom Software | Web Development | Mobile Apps</p>
+
+    <p>
+        📸 Instagram:
+        <a href="https://instagram.com/ariyom_tech_solutions" target="_blank">
+            @ariyom_tech_solutions
+        </a>
+    </p>
 </footer>
 
 <script>
