@@ -45,6 +45,37 @@ body {
     color: white;
 }
 
+/* DROPDOWN MENU */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown a:hover {
+    background: #f3f4f6;
+}
+
+.admin-link {
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: bold;
+}
+
 /* BRAND */
 .brand-bar {
     background: #111;
@@ -158,10 +189,35 @@ button {
 
 <body>
 
-<!-- HEADER -->
+<!-- HEADER WITH MENU -->
 <div class="header">
+
+    <div class="menu">
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <div class="dropdown" id="menuDropdown">
+            {% if session.get('admin') %}
+                <a href="/admin">🛠 Admin Panel</a>
+                <a href="/admin/orders">📦 Orders</a>
+                <a href="/logout">🚪 Logout</a>
+
+            {% elif session.get('user') %}
+                <a>👤 {{ session.get('user') }}</a>
+                <a href="/cart">🛒 My Cart</a>
+                <a href="/user_logout">🚪 Logout</a>
+
+            {% else %}
+                <a href="/user_login">👤 User Login</a>
+                <a href="/signup">📝 Signup</a>
+                <a href="/login" class="admin-link">🛠 Admin Login</a>
+            {% endif %}
+        </div>
+    </div>
+
     <h1>⚡ GMD Gadgets</h1>
+
     <a href="/cart" class="cart-btn">🛒</a>
+
 </div>
 
 <!-- BRAND -->
@@ -208,6 +264,17 @@ button {
 </footer>
 
 <script>
+function toggleMenu() {
+    let menu = document.getElementById("menuDropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+window.onclick = function(e) {
+    if (!e.target.closest('.menu')) {
+        document.getElementById("menuDropdown").style.display = "none";
+    }
+}
+
 function liveSearch() {
     let input = document.getElementById("searchInput").value.toLowerCase();
     let cards = document.querySelectorAll(".card");
