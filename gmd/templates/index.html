@@ -47,6 +47,15 @@ body {
     font-weight: bold;
 }
 
+/* 🔥 BRAND BAR */
+.brand-bar {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 6px;
+    font-size: 13px;
+}
+
 /* DROPDOWN */
 .dropdown {
     display: none;
@@ -89,40 +98,46 @@ body {
     max-width: 600px;
     margin: auto;
     background: white;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid #ccc;
     overflow: hidden;
 }
 
 .search-box input {
     flex: 1;
-    padding: 12px;
+    padding: 10px;
     border: none;
     outline: none;
     font-size: 14px;
 }
 
 .search-box button {
-    padding: 12px 16px;
+    padding: 8px 12px;
     border: none;
     background: #2563eb;
     color: white;
     cursor: pointer;
-    font-size: 16px;
 }
 
 /* 🛍 PRODUCTS */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(2, 1fr); /* 📱 mobile */
+    gap: 12px;
+    padding: 12px;
+}
+
+/* 💻 DESKTOP */
+@media (min-width: 768px) {
+    .products {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* CARD */
 .card {
     background: white;
-    padding: 12px;
+    padding: 10px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -130,17 +145,25 @@ body {
 
 .card img {
     width: 100%;
-    height: 150px;
+    height: 120px;
     object-fit: cover;
     border-radius: 6px;
 }
 
 .card h3 {
-    margin: 10px 0 5px;
+    margin: 8px 0 4px;
+    font-size: 14px;
 }
 
 .card p {
     margin: 0;
+    font-size: 13px;
+}
+
+/* BRAND TEXT */
+.brand {
+    font-size: 10px;
+    color: gray;
 }
 
 /* BUTTON */
@@ -148,44 +171,25 @@ button {
     background: #2563eb;
     color: white;
     border: none;
-    padding: 9px;
+    padding: 7px;
     width: 100%;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 8px;
+    font-size: 13px;
 }
 
 .in-cart {
     background: #22c55e;
 }
 
-/* 📱 MOBILE */
-@media(max-width:600px){
-
-    .products {
-        grid-template-columns: 1fr;
-    }
-
-    .header h1 {
-        font-size: 16px;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .search-box input {
-        font-size: 13px;
-    }
-
-    .search-box button {
-        width: 50px;
-        padding: 10px;
-    }
-
-    .card img {
-        height: 140px;
-    }
+/* FOOTER */
+.footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
 }
 </style>
 </head>
@@ -220,6 +224,11 @@ button {
     <a href="/cart" class="cart-btn">🛒 Cart</a>
 </div>
 
+<!-- 🔥 BRAND -->
+<div class="brand-bar">
+    🚀 Powered by <strong>Ariyom Tech Solutions</strong>
+</div>
+
 <!-- SEARCH -->
 <div class="search-section">
     <form method="GET" class="search-box">
@@ -238,6 +247,7 @@ button {
 
     <img src="{{ p['image'] }}">
     <h3>{{ p['name'] }}</h3>
+    <p class="brand">by Ariyom Tech</p>
     <p>₹{{ p['price'] }}</p>
 
     {% if cart.get(p['id']|string) %}
@@ -252,6 +262,12 @@ button {
 {% endfor %}
 
 </div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <h3>Ariyom Tech Solutions</h3>
+    <p>Custom Software | Web Development | Mobile Apps</p>
+</footer>
 
 <script>
 function toggleMenu() {
